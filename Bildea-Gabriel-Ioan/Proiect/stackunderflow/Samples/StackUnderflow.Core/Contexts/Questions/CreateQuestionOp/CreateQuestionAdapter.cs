@@ -9,7 +9,7 @@ using static StackUnderflow.Domain.Schema.Questions.CreateQuestionOp.CreateQuest
 
 namespace StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp
 {
-    public class CreateQuestionAdaptor : Adapter<CreateQuestionCmd, ICreateQuestionResult, QuestionsWriteContext, QuestionsDependencies>
+    public class CreateQuestionAdapter : Adapter<CreateQuestionCmd, ICreateQuestionResult, QuestionsWriteContext, QuestionsDependencies>
     {
         public override Task PostConditions(CreateQuestionCmd cmd, ICreateQuestionResult result, QuestionsWriteContext state)
         {
@@ -32,7 +32,7 @@ namespace StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp
 
         private ICreateQuestionResult AddQuestion(QuestionsWriteContext state, object v)
         {
-            return new QuestionCreated(Guid.NewGuid(), "TitluIntrebare", "BodyIntrebare", new string[] { "Tag1", "Tag2", "Tag3" });
+            return new QuestionCreated(Guid.NewGuid(), "TitluIntrebare", "BodyIntrebare", "tag1, tag2 ,tag3" );
         }
 
         private object CreateQuestionFromCmd(CreateQuestionCmd cmd)

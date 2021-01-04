@@ -8,7 +8,7 @@ namespace StackUnderflow.Domain.Schema.Questions.CreateQuestionOp
     public class CreateQuestionCmd
     {
         public CreateQuestionCmd() { }
-        public CreateQuestionCmd(string Title, string Body, string[] Tags)
+        public CreateQuestionCmd(string Title, string Body, string Tags)
         {
             this.Title = Title;
             this.Body = Body;
@@ -27,7 +27,7 @@ namespace StackUnderflow.Domain.Schema.Questions.CreateQuestionOp
 
         [Required(ErrorMessage = "Please enter at least one tag; see a list of popular tags.")]
         [MinLength(1), MaxLength(10)]
-        public string[] Tags { get; set; }
+        public string Tags { get; set; }
 
 
     }

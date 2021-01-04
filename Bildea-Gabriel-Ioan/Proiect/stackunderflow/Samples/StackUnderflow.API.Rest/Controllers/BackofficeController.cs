@@ -13,6 +13,7 @@ using Access.Primitives.EFCore;
 using StackUnderflow.Domain.Schema.Backoffice.InviteTenantAdminOp;
 using StackUnderflow.Domain.Schema.Backoffice;
 using LanguageExt;
+using StackUnderflow.EF;
 
 namespace StackUnderflow.API.Rest.Controllers
 {
@@ -45,10 +46,15 @@ namespace StackUnderflow.API.Rest.Controllers
 
             var r = await _interpreter.Interpret(expr, ctx, dependencies);
 
+            _dbContext.Tenant.Add(new EF.Models.Tenant { RowGuid = Guid.NewGuid(), OrganisationId = createTenantCmd.OrganisationId , Name = createTenantCmd.TenantName, Description = createTenantCmd.Description });
+            //var reply = await _dbContext.QuestionModel.Where(r => r.Title == "intrebTest").SingleOrDefaultAsync();
+            //_dbContext.Question.Update(reply);
+            await _dbContext.SaveChangesAsync();
+
             return r.createTenantResult.Match(
                 created => (IActionResult)Ok(created.Tenant.TenantId),
                 notCreated => BadRequest("Tenant could not be created."),
-                invalidRequest => BadRequest("Invalid request."));
+                invalidRequest => BadRequest("Invalid request.")) ;
         }
     }
 }

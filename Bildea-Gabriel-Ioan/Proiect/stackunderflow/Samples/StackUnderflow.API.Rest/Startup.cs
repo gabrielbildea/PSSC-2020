@@ -24,6 +24,7 @@ using StackUnderflow.Backoffice.Adapters.CreateTenant;
 using StackUnderflow.EF;
 using StackUnderflow.EF.Models;
 using Orleans.Hosting;
+using StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp;
 
 namespace FakeSO.API.Rest
 {
@@ -40,12 +41,13 @@ namespace FakeSO.API.Rest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOperations(typeof(CreateTenantAdapter).Assembly);
+            services.AddOperations(typeof(CreateQuestionAdapter).Assembly);
             services.AddSingleton<IExecutionContext, LiveExecutionContext>();
             services.AddTransient<IInterpreterAsync>(sp => new LiveInterpreterAsync(sp));
 
-            services.AddDbContext<DatabaseContext>(builder =>
+            services.AddDbContext<StackUnderflowContext>(builder =>
             {
-                builder.UseSqlServer(Configuration.GetConnectionString("StackOverflow"));
+                builder.UseSqlServer(Configuration.GetConnectionString("StackUnderflow2"));
             });
 
             services.AddControllers();

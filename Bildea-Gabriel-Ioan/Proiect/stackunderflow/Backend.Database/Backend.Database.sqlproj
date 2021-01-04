@@ -129,6 +129,8 @@
     <Build Include="Security\Policies\ForumAdminPolicy.sql" />
     <Build Include="StoredProcedures\dbo.BackofficeHttpController.sql" />
     <Build Include="StoredProcedures\base.QuestionProjection.sql" />
+    <Build Include="base\Tables\Question.sql" />
+    <Build Include="User\Question.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Backend.Database.refactorlog" />

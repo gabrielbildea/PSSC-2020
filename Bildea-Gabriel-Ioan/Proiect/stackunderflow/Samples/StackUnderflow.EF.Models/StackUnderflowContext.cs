@@ -3,6 +3,7 @@ using Access.Primitives.EFCore.DSL;
 using Access.Primitives.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using StackUnderflow.DatabaseModel.Models;
 
 namespace StackUnderflow.EF.Models
 {
@@ -34,12 +35,15 @@ namespace StackUnderflow.EF.Models
         public virtual DbSet<Vote> Vote { get; set; }
         public virtual DbSet<VoteType> VoteType { get; set; }
 
+        public DbSet<Question> Question { get; set; }
+        public DbSet<Reply> Replies { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=ACCESS-1303SF2\\SQL2017;Database=StackUnderflow;Integrated Security=true;");
+                optionsBuilder.UseSqlServer("Server=GABI-ROG\\SQLEXPR;Database=stackunderflow;Integrated Security=true;");
             }
         }
 
