@@ -1,12 +1,12 @@
-﻿using Access.Primitives.Extensions.ObjectExtensions;
-using Access.Primitives.IO;
-using StackUnderflow.Domain.Schema.Questions.CreateQuestionOp;
-using StackUnderflow.EF.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Access.Primitives.Extensions.ObjectExtensions;
+using Access.Primitives.IO;
+using StackUnderflow.Domain.Schema.Questions.CreateQuestionOp;
+using StackUnderflow.EF.Models;
 using static StackUnderflow.Domain.Schema.Questions.CreateQuestionOp.CreateQuestionResult;
 
 namespace StackUnderflow.Domain.Core.Contexts.Questions.CreateQuestionOp

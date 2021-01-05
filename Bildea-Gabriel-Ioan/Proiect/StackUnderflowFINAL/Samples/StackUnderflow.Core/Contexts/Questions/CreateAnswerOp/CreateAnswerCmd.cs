@@ -1,8 +1,8 @@
-﻿using EarlyPay.Primitives.ValidationAttributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using EarlyPay.Primitives.ValidationAttributes;
 
 namespace StackUnderflow.Domain.Schema.Questions.CreateAnswerOp
 {

@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace StackUnderflow.Domain.Schema.Questions.CheckLanguageOp
 {

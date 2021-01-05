@@ -16,8 +16,4 @@
     <ProjectReference Include="..\StackUnderflow.Schema\StackUnderflow.DatabaseModel.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Contexts\Questions\SendNotificationOp\" />
-  </ItemGroup>
-
 </Project>

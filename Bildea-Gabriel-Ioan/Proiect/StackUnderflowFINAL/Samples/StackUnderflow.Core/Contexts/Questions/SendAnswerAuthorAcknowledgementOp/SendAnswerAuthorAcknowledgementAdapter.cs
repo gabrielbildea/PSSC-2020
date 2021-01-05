@@ -1,16 +1,16 @@
-﻿using Access.Primitives.IO;
-using GrainInterfaces;
-using Orleans;
-using StackUnderflow.Domain.Schema.Questions.SendReplyAuthorAcknowledgementOp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using static StackUnderflow.Domain.Schema.Questions.SendReplyAuthorAcknowledgementOp.SendAnswerAuthorAcknowledgementResult;
+using Access.Primitives.IO;
+using GrainInterfaces;
+using Orleans;
+using StackUnderflow.Domain.Schema.Questions.SendAnswerAuthorAcknowledgementOp;
+using static StackUnderflow.Domain.Schema.Questions.SendAnswerAuthorAcknowledgementOp.SendAnswerAuthorAcknowledgementResult;
 
-namespace StackUnderflow.Domain.Core.Contexts.Questions.SendReplyAuthorAcknowledgementOp
+namespace StackUnderflow.Domain.Core.Contexts.Questions.SendAnswerAuthorAcknowledgementOp
 {
-    class SendAnswerAuthorAcknowledgementAdapter : Adapter<SendAnswerAuthorAcknowledgementCmd, ISendReplyAuthorAcknowledgementResult, QuestionsWriteContext, QuestionsDependencies>
+    class SendAnswerAuthorAcknowledgementAdapter : Adapter<SendAnswerAuthorAcknowledgementCmd, ISendAnswerAuthorAcknowledgementResult, QuestionsWriteContext, QuestionsDependencies>
     {
         private readonly IClusterClient clusterClient;
 
@@ -18,12 +18,12 @@ namespace StackUnderflow.Domain.Core.Contexts.Questions.SendReplyAuthorAcknowled
         {
             this.clusterClient = clusterClient;
         }
-        public override Task PostConditions(SendAnswerAuthorAcknowledgementCmd cmd, ISendReplyAuthorAcknowledgementResult result, QuestionsWriteContext state)
+        public override Task PostConditions(SendAnswerAuthorAcknowledgementCmd cmd, ISendAnswerAuthorAcknowledgementResult result, QuestionsWriteContext state)
         {
             return Task.CompletedTask;
         }
 
-        public async override Task<ISendReplyAuthorAcknowledgementResult> Work(SendAnswerAuthorAcknowledgementCmd cmd, QuestionsWriteContext state, QuestionsDependencies dependencies)
+        public async override Task<ISendAnswerAuthorAcknowledgementResult> Work(SendAnswerAuthorAcknowledgementCmd cmd, QuestionsWriteContext state, QuestionsDependencies dependencies)
         {
             var helloGrain = this.clusterClient.GetGrain<IHello>(0);
 

@@ -1,8 +1,9 @@
-﻿using StackUnderflow.DatabaseModel.Models;
-using StackUnderflow.EF.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Text;
+using System.Collections.Generic;
+using StackUnderflow.DatabaseModel.Models;
+using StackUnderflow.EF.Models;
+
 
 namespace StackUnderflow.Domain.Core.Contexts.Questions
 {

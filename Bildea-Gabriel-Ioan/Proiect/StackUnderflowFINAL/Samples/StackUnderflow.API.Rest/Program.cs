@@ -35,7 +35,7 @@ namespace FakeSO.API.Rest
                          options.ServiceId = "OrleansBasics";
                      })
                     .ConfigureApplicationParts(
-                        parts => parts.AddApplicationPart(typeof(QuestionGrain).Assembly)
+                        parts => parts.AddApplicationPart(typeof(QuestionProjectionGrain).Assembly)
                                 .WithReferences())
                     .AddSimpleMessageStreamProvider("SMSProvider", options => { options.FireAndForgetDelivery = true; });
 

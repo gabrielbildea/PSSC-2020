@@ -1,26 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using GrainInterfaces;
 using Microsoft.EntityFrameworkCore;
 using Orleans;
 using Orleans.Streams;
-using StackUnderflow.DatabaseModel.Models;
 using StackUnderflow.EF.Models;
 
 namespace GrainImplementation
 {
-    public class QuestionGrain: Orleans.Grain, IQuestionGrain
+    public class QuestionProjectionGrain: Orleans.Grain, IQuestionProjectionGrain
     {
 
-        private readonly StackUnderflowContext _dbContext;
-        private QuestionGrain state;
+        private readonly StackUnderflowContext _stackUnderflowContext;
+        private IList<Post> _questions;
+        private readonly int _tenantId = 1;
 
-        public QuestionGrain(StackUnderflowContext dbContext)
+        public QuestionProjectionGrain(StackUnderflowContext stackUnderflowContext = null)
         {
-            _dbContext = dbContext;
+            _stackUnderflowContext = stackUnderflowContext;
+        }
+        public async Task<IEnumerable<Post>> GetQuestionsAsync()
+        {
+            return _questions; //.Where(p => p.ParentPostId == null);
+        }
+
+        public async Task<IEnumerable<Post>> GetQuestionAsync(int questionId)
+        {
+            return _questions.Where(p => p.PostId == questionId);
+        }
+
+        public override async Task OnActivateAsync()
+        {
+            //todo get tenant id 
+            //grain identity {organizationGuid}/{tenantId}/questionProjection
+            IAsyncStream<Post> stream = this.GetStreamProvider("SMSProvider").GetStream<Post>(Guid.Empty, "questions");
+            await stream.SubscribeAsync((IAsyncObserver<Post>)this);
+
+            //_questions = await _stackUnderflowContext.Post.Include(i=>i.Vote).Where(p => p.TenantId == _tenantId).ToListAsync();
+            _questions = new List<Post>() {
+                new Post
+                {
+                    PostId = 1,
+                    PostText ="My question"
+                }
+            };
+        }
+
+        public async Task OnNextAsync(Post item, StreamSequenceToken token = null)
+        {
+            //_questions.Add(item)
+            //_questions = await _stackUnderflowContext.Post.Include(i => i.Vote).Where(p => p.TenantId == _tenantId).ToListAsync();
+            _questions.Add(item); //= new List<Post>();
+        }
+
+        public Task OnCompletedAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task OnErrorAsync(Exception ex)
+        {
+            throw new NotImplementedException();
         }
 
         /*public async Task OnActivateAsync(StackUnderflowContext dbContext)
@@ -47,13 +89,13 @@ namespace GrainImplementation
         }*/
         //public override async Task OnActivateAsync()
         //{
-            //read state from Db where postid = or parentid=
-            //subscribe to reply states
-            //var key = (int)this.GetPrimaryKeyLong();
-            //IStreamProvider streamProvider = GetStreamProvider("SMSProvider");
-            //IAsyncStream<string> stream = streamProvider.GetStream<string>(this.GetPrimaryKey(), "QuestionAndAnswers");
-            //var subscription = await stream.SubscribeAsync((IAsyncObserver<string>)this);
-            //base.OnActivateAsync();
+        //read state from Db where postid = or parentid=
+        //subscribe to reply states
+        //var key = (int)this.GetPrimaryKeyLong();
+        //IStreamProvider streamProvider = GetStreamProvider("SMSProvider");
+        //IAsyncStream<string> stream = streamProvider.GetStream<string>(this.GetPrimaryKey(), "QuestionAndAnswers");
+        //var subscription = await stream.SubscribeAsync((IAsyncObserver<string>)this);
+        //base.OnActivateAsync();
         //}
         public async Task<IEnumerable<string>> SendQuestionWithAnswers(StackUnderflowContext dbContext)
         {
@@ -80,6 +122,7 @@ namespace GrainImplementation
             return await Task.FromResult(question);
             // return base.OnActivateAsync();
         }
-
+        
+        
     }
 }

@@ -3,15 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace StackUnderflow.Domain.Schema.Questions.SendReplyAuthorAcknowledgementOp
+namespace StackUnderflow.Domain.Schema.Questions.SendAnswerAuthorAcknowledgementOp
 {
     [AsChoice]
     public static partial class SendAnswerAuthorAcknowledgementResult
     {
 
-        public interface ISendReplyAuthorAcknowledgementResult { }
+        public interface ISendAnswerAuthorAcknowledgementResult { }
 
-        public class AcknowledgementSent : ISendReplyAuthorAcknowledgementResult
+        public class AcknowledgementSent : ISendAnswerAuthorAcknowledgementResult
         {
             public AcknowledgementSent(int questionId, int questionOwnerId)
             {
@@ -23,7 +23,7 @@ namespace StackUnderflow.Domain.Schema.Questions.SendReplyAuthorAcknowledgementO
             public int QuestionOwnerId { get; }
         }
 
-        public class AcknowledgementNotSent : ISendReplyAuthorAcknowledgementResult
+        public class AcknowledgementNotSent : ISendAnswerAuthorAcknowledgementResult
         {
             public AcknowledgementNotSent(string message)
             {

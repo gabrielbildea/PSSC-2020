@@ -1,7 +1,7 @@
 ﻿using Access.Primitives.IO;
 using GrainInterfaces;
 using Orleans;
-using StackUnderflow.Domain.Schema.Questions.SendReplyAuthorAcknowledgementOp;
+using StackUnderflow.Domain.Schema.Questions.SendAnswerAuthorAcknowledgementOp;
 using System;
 using System.Collections.Generic;
 using System.Text;

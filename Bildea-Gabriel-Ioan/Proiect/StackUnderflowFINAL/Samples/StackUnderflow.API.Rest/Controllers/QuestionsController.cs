@@ -1,32 +1,28 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using LanguageExt;
+using Microsoft.AspNetCore.Http;
+using GrainInterfaces;
+using Orleans.Streams;
 using Orleans;
+using LanguageExt;
 using Access.Primitives.Extensions.ObjectExtensions;
 using Access.Primitives.IO;
 using Access.Primitives.EFCore;
 using StackUnderflow.DatabaseModel.Models;
-using StackUnderflow.EF;
-using StackUnderflow.Domain.Core;
 using StackUnderflow.Domain.Schema.Backoffice.CreateTenantOp;
 using StackUnderflow.Domain.Schema.Backoffice.InviteTenantAdminOp;
-using StackUnderflow.Domain.Schema.Backoffice;
 using StackUnderflow.Domain.Core.Contexts.Questions;
 using StackUnderflow.Domain.Schema.Questions.CreateAnswerOp;
 using StackUnderflow.Domain.Schema.Questions.CheckLanguageOp;
-using StackUnderflow.Domain.Schema.Questions.SendReplyAuthorAcknowledgementOp;
+using StackUnderflow.Domain.Schema.Questions.SendAnswerAuthorAcknowledgementOp;
 using StackUnderflow.Domain.Schema.Questions.CreateQuestionOp;
 using StackUnderflow.Domain.Schema.Questions.SendQuestionOwnerAcknowledgementOp;
-using System.Collections.Generic;
-using StackUnderflow.EF.Models;
-using System.Linq;
-using Microsoft.AspNetCore.Http;
-using GrainInterfaces;
-using Orleans.Streams;
-using System.Text.Json;
 using StackUnderflow.Domain.Core.Contexts.Questions.SendAnswerAuthorAcknowledgementOp;
+using StackUnderflow.EF.Models;
 
 namespace StackUnderflow.API.Rest.Controllers
 {
@@ -122,13 +118,13 @@ namespace StackUnderflow.API.Rest.Controllers
               return new NotificationAcknowledgement(Guid.NewGuid().ToString());
          };
 
-
+        /*
         [HttpGet("{questionId}")]
         public async Task<IActionResult> GetQuestion(int questionId)
         {
 
             _client.Connect();
-            var questionSender = _client.GetGrain<IQuestionGrain>(questionId);
+            var questionSender = _client.GetGrain<IQuestionProjectionGrain>(questionId);
             questionSender.OnActivateAsync();
             //var stream = question.GetQuestionWithAnswers(Guid.NewGuid().ToString());
             //await questionSender.OnActivateAsync(_dbContext);
@@ -145,6 +141,6 @@ namespace StackUnderflow.API.Rest.Controllers
 
             //string jsonString = JsonSerializer.Serialize(response.ToString());
             return (IActionResult)Ok(response);
-        }
+        }*/
     }
 }
